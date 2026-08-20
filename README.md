@@ -1,11 +1,11 @@
 # 📦 Product Management System - E2E & API Testing Portfolio
 
-![Java](https://shields.io)
-![Spring Boot](https://shields.io)
-![Selenium](https://shields.io)
-![REST Assured](https://shields.io)
-![Cucumber](https://shields.io)
-![JUnit 5](https://shields.io)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-WebDriver-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+![REST Assured](https://img.shields.io/badge/REST_Assured-API_Testing-008080?style=for-the-badge)
+![Cucumber](https://img.shields.io/badge/Cucumber-BDD-23D96C?style=for-the-badge&logo=cucumber&logoColor=white)
+![JUnit 5](https://img.shields.io/badge/JUnit-5-25A162?style=for-the-badge&logo=junit5&logoColor=white)
 
 This project is a full-stack **Product Management Application** featuring automated **End-to-End (E2E) UI & REST API Testing Suites**. It demonstrates modern test automation practices using Java 21, Selenium WebDriver, REST Assured, Cucumber BDD, and Spring Boot.
 
