@@ -6,6 +6,9 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,9 +30,9 @@ public class ProductSteps {
     public void setup() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless=new");
-        
-        options.addArguments("--start-maximized");
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
     }
@@ -46,6 +49,12 @@ public class ProductSteps {
         productPage.fillProductForm(name, price, description, imageUrl);
     }
 
+    @When("I fill in the product form with price {string} and description {string}")
+    public void iFillInTheProductFormWithoutName(String price, String description) {
+        productPage.clickAddNewProduct();
+        productPage.fillProductForm(null, price, description, null);
+    }
+
     @And("I click the submit button")
     public void iClickTheSubmitButton() {
         productPage.clickSubmit();
@@ -56,19 +65,16 @@ public class ProductSteps {
         Assertions.assertTrue(productPage.isProductInList(productName));
     }
 
+    @Then("an error message {string} should be displayed")
+    public void errorMessageShouldBeDisplayed(String expectedMessage) {
+        String actualMessage = productPage.getErrorMessageText();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
     @After
     public void tearDown() {
         if (driver != null) {
-            try {
-                driver.quit();
-            } catch (Exception e) {
-                // Caso ocorra timeout no quit nativo
-            } finally {
-                // Matar processos pendentes do ChromeDriver no Windows para liberação imediata
-                try {
-                    Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
-                } catch (Exception ignored) {}
-            }
+            driver.quit();
         }
     }
 }

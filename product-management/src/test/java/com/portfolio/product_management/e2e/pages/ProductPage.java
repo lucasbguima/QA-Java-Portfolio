@@ -13,8 +13,6 @@ public class ProductPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
-
-    // Mapeamento dos elementos HTML
     private final By addProductButton = By.id("btn-add-product");
     private final By nameInput = By.id("name");
     private final By priceInput = By.id("price");
@@ -22,10 +20,10 @@ public class ProductPage {
     private final By imageUrlInput = By.id("imageUrl");
     private final By saveButton = By.id("btn-save");
     private final By productsTable = By.id("products-table");
+    private final By errorMessage = By.id("errorMessage");
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
-        // Timeout curto de 3 segundos para evitar travamentos em retries
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
 
@@ -34,10 +32,13 @@ public class ProductPage {
     }
 
     public void fillProductForm(String name, String price, String description, String imageUrl) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInput)).sendKeys(name);
-        driver.findElement(priceInput).sendKeys(price);
-        driver.findElement(descriptionInput).sendKeys(description);
-        driver.findElement(imageUrlInput).sendKeys(imageUrl);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(nameInput));
+        
+        // Tratamento para não passar 'null' para o sendKeys
+        if (name != null) driver.findElement(nameInput).sendKeys(name);
+        if (price != null) driver.findElement(priceInput).sendKeys(price);
+        if (description != null) driver.findElement(descriptionInput).sendKeys(description);
+        if (imageUrl != null) driver.findElement(imageUrlInput).sendKeys(imageUrl);
     }
 
     public void clickSubmit() {
@@ -52,8 +53,11 @@ public class ProductPage {
     }
 
     public boolean isProductInList(String productName) {
-        // Validação direta via texto da tabela sem buscas redundantes no DOM
         WebElement table = wait.until(ExpectedConditions.visibilityOfElementLocated(productsTable));
         return table.getText().contains(productName);
+    }
+
+    public String getErrorMessageText() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
     }
 }

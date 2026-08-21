@@ -2,9 +2,11 @@ package com.portfolio.product_management.controllers;
 
 import com.portfolio.product_management.models.Product;
 import com.portfolio.product_management.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -27,7 +29,10 @@ public class ProductWebController {
     }
 
     @PostMapping
-    public String saveProduct(@ModelAttribute("product") Product product) {
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result) {
+        if (result.hasErrors()) {
+            return "product-form";
+        }
         service.saveProduct(product);
         return "redirect:/products";
     }

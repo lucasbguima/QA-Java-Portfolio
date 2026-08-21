@@ -1,4 +1,4 @@
-# 📦 Product Management System - E2E & API Testing Portfolio
+# 📦 Product CRUD - E2E & API Testing Portfolio
 
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
@@ -66,7 +66,7 @@ cd QA-Java-Portfolio/product-management
 
 ### 3. Run Automated Tests
 ```bash
-# Run UI E2E Tests (Cucumber)
+# Run UI E2E Tests (Selenium + Cucumber)
 ./mvnw test -Dtest=TestRunner
 
 # Run API Tests (REST Assured)
